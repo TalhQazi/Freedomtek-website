@@ -31,19 +31,15 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border">
+    <footer className="bg-accent/10 border-t border-border">
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/40 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-accent" />
+            <Link to="/" className="inline-flex items-center mb-6">
+              <div className="w-24 h-20 rounded-lg bg-accent/10 border border-accent/40 overflow-hidden flex items-center justify-center">
+                <img src="/11.jpeg" alt="FreedomTek" className="w-full h-full object-cover" />
               </div>
-              <span className="text-xl font-bold tracking-tight">
-                Freedom<span className="text-accent">Tek</span>
-                <sup className="text-xs text-muted-foreground">®</sup>
-              </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               The complete inmate communications ecosystem. Secure, transparent, and fair for facilities and families.
@@ -51,12 +47,9 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <a href="mailto:nathan@membershipauto.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-4 h-4" />
-                nathan@membershipauto.com
+                Info@myfreedomtek.com
               </a>
-              <a href="tel:+12077457575" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                <Phone className="w-4 h-4" />
-                (207) 745-7575
-              </a>
+             
               <div className="flex items-center gap-2 text-muted-foreground">
                 <MapPin className="w-4 h-4" />
                 Maine, USA

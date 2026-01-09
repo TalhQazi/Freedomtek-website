@@ -84,7 +84,7 @@ const AdminModule = () => {
           </div>
         </section>
 
-        <section className="py-16 border-t border-[color:var(--border-subtle)] bg-[color:var(--background-elevated)]/80">
+        <section className="py-16 bg-[color:var(--background-elevated)]/80">
           <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl md:text-3xl font-semibold mb-2">

@@ -167,16 +167,20 @@ const Platform = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-24 bg-card/50">
+        <section className="py-24 bg-[color:var(--background-elevated)]/80">
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               <span className="text-foreground">See the Platform </span>
               <span className="text-accent">in Action</span>
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+            <p className="text-[color:var(--foreground-muted)] mb-8 max-w-xl mx-auto">
               Schedule a personalized demo to see how FreedomTek® can transform your facility.
             </p>
-            <Button size="lg" className="neon-glow" asChild>
+            <Button
+              size="lg"
+              className="rounded-2xl bg-accent text-accent-foreground hover:bg-accent/90 px-7 shadow-sm"
+              asChild
+            >
               <Link to="/demo">
                 Book a Demo
                 <ArrowRight className="w-5 h-5 ml-2" />
