@@ -73,8 +73,8 @@ export function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50' 
-        : 'bg-background/80 backdrop-blur-lg border-b border-border/30'
+        ? 'bg-[#ffffff] shadow-lg border-b border-gray-200' 
+        : 'bg-[#ffffff] border-b border-gray-200'
     }`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 md:h-20 flex items-center justify-between">
@@ -87,7 +87,7 @@ export function Header() {
             >
               <div className="w-28 md:w-32 h-16 md:h-20 flex items-center justify-center overflow-hidden">
                 <motion.img 
-                  src="/12.png" 
+                  src="/logo.png" 
                   alt="FreedomTek" 
                   className="w-full h-full object-contain"
                   initial={{ opacity: 0.8 }}
@@ -115,8 +115,8 @@ export function Header() {
                   to={item.href}
                   className={`px-4 py-2.5 text-sm font-medium rounded-xl flex items-center gap-1.5 transition-all duration-200 group
                     ${location.pathname === item.href 
-                      ? "text-accent bg-accent/10" 
-                      : "text-foreground/80 hover:text-foreground hover:bg-muted/50"
+                      ? "text-[#1a56db] bg-blue-50" 
+                      : "text-gray-700 hover:text-[#1a56db] hover:bg-blue-50"
                     }`}
                 >
                 
@@ -139,17 +139,17 @@ export function Header() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-gradient-to-br from-card to-background border border-border shadow-2xl p-2 backdrop-blur-xl z-50"
+                      className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-white border border-gray-200 shadow-2xl p-2 z-50"
                     >
-                      <div className="absolute -top-2 left-6 w-4 h-4 bg-card border-t border-l border-border/50 transform rotate-45" />
+                      <div className="absolute -top-2 left-6 w-4 h-4 bg-white border-t border-l border-gray-200 transform rotate-45" />
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
                           to={child.href}
-                          className="group relative overflow-hidden block px-4 py-3 text-sm rounded-xl hover:bg-muted/50 transition-all duration-200 flex items-center gap-3"
+                          className="group relative overflow-hidden block px-4 py-3 text-sm rounded-xl hover:bg-blue-50 transition-all duration-200 flex items-center gap-3"
                         >
                           <span className="text-lg">{child.icon}</span>
-                          <span className="text-foreground/90 group-hover:text-foreground transition-colors">
+                          <span className="text-gray-700 group-hover:text-[#1a56db] transition-colors">
                             {child.name}
                           </span>
                           <motion.div
@@ -157,10 +157,10 @@ export function Header() {
                             initial={{ x: -5 }}
                             whileHover={{ x: 0 }}
                           >
-                            <ChevronRight className="w-4 h-4 text-accent" />
+                            <ChevronRight className="w-4 h-4 text-[#1a56db]" />
                           </motion.div>
                           <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/5 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-50 to-transparent"
                             initial={{ x: "-100%" }}
                             whileHover={{ x: "100%" }}
                             transition={{ duration: 0.4 }}
@@ -184,7 +184,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-foreground/70 hover:text-foreground hover:bg-muted/50 rounded-xl"
+                className="text-gray-700 hover:text-[#1a56db] hover:bg-blue-50 rounded-xl"
                 asChild
               >
                 <Link to="/login" className="flex items-center gap-2">
@@ -203,7 +203,7 @@ export function Header() {
             >
               <Button
                 size="sm"
-                className="rounded-2xl bg-gradient-to-r from-accent to-accent/90 text-accent-foreground hover:from-accent hover:to-accent shadow-lg hover:shadow-accent/25 relative overflow-hidden group"
+                className="rounded-2xl bg-gradient-to-r from-[#1a56db] to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-blue-500/25 relative overflow-hidden group"
                 asChild
               >
                 <Link to="/demo" className="flex items-center gap-2 px-5">
@@ -225,7 +225,7 @@ export function Header() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-foreground/70 hover:text-foreground hover:bg-muted/50 rounded-xl p-2"
+              className="text-gray-700 hover:text-[#1a56db] hover:bg-blue-50 rounded-xl p-2"
               asChild
             >
               <Link to="/login">
@@ -234,7 +234,7 @@ export function Header() {
             </Button>
             <Button
               size="sm"
-              className="rounded-2xl bg-accent text-accent-foreground hover:bg-accent/90 px-4 shadow-lg"
+              className="rounded-2xl bg-[#1a56db] text-white hover:bg-blue-600 px-4 shadow-lg"
               asChild
             >
               <Link to="/demo" className="flex items-center gap-1.5">
@@ -246,7 +246,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="lg:hidden p-2.5 rounded-xl hover:bg-muted/50 transition-colors relative z-50"
+            className="lg:hidden p-2.5 rounded-xl hover:bg-blue-50 transition-colors relative z-50 text-gray-700"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
@@ -260,9 +260,9 @@ export function Header() {
               transition={{ duration: 0.3 }}
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-foreground" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-6 h-6 text-foreground" />
+                <Menu className="w-6 h-6" />
               )}
             </motion.div>
           </motion.button>
@@ -277,36 +277,35 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden fixed inset-x-0 top-16 md:top-20 z-40 bg-background border-b border-border/60 shadow-xl"
+            className="lg:hidden fixed inset-x-0 top-16 md:top-20 z-40 bg-white border-b border-gray-200 shadow-xl"
           >
             <div className="px-6 py-6 max-h-[calc(100vh-5rem)] overflow-y-auto">
               {/* Mobile Navigation Links */}
               <nav className="space-y-1">
                 {navigation.map((item) => (
-                  <div key={item.name} className="border-b border-border/30 last:border-0 pb-3 last:pb-0">
+                  <div key={item.name} className="border-b border-gray-200 last:border-0 pb-3 last:pb-0">
                     <div className="flex items-center justify-between">
                       <Link
                         to={item.href}
                         className={`flex items-center gap-3 py-2 text-base font-medium w-full ${
                           location.pathname === item.href 
-                            ? "text-accent" 
-                            : "text-foreground/90"
+                            ? "text-[#1a56db]" 
+                            : "text-gray-700 hover:text-[#1a56db]"
                         }`}
                         onClick={() => !item.children && setMobileMenuOpen(false)}
                       >
-                       
                         {item.name}
                       </Link>
                       {item.children && (
                         <button
                           onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
-                          className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
+                          className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-gray-500"
                         >
                           <motion.div
                             animate={{ rotate: activeDropdown === item.name ? 180 : 0 }}
                             transition={{ duration: 0.2 }}
                           >
-                            <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                            <ChevronDown className="w-5 h-5" />
                           </motion.div>
                         </button>
                       )}
@@ -326,7 +325,7 @@ export function Header() {
                             <Link
                               key={child.name}
                               to={child.href}
-                              className="block py-2 text-sm text-foreground/70 hover:text-foreground transition-colors flex items-center gap-3"
+                              className="block py-2 text-sm text-gray-600 hover:text-[#1a56db] transition-colors flex items-center gap-3"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               <span className="text-base">{child.icon}</span>
@@ -342,10 +341,10 @@ export function Header() {
               </nav>
 
               {/* Mobile CTA Buttons */}
-              <div className="mt-6 pt-4 border-t border-border/50 space-y-3">
+              <div className="mt-6 pt-4 border-t border-gray-200 space-y-3">
                 <Button
                   variant="outline"
-                  className="w-full rounded-xl h-11 text-sm"
+                  className="w-full rounded-xl h-11 text-sm border-gray-300 text-gray-700 hover:text-[#1a56db] hover:border-blue-300 hover:bg-blue-50"
                   asChild
                 >
                   <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
@@ -355,7 +354,7 @@ export function Header() {
                 </Button>
                 
                 <Button
-                  className="w-full rounded-2xl bg-gradient-to-r from-accent to-accent/90 text-accent-foreground hover:from-accent hover:to-accent h-11 text-sm shadow-lg"
+                  className="w-full rounded-2xl bg-gradient-to-r from-[#1a56db] to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 h-11 text-sm shadow-lg"
                   asChild
                 >
                   <Link to="/demo" onClick={() => setMobileMenuOpen(false)}>

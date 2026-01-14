@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,34 +10,51 @@ import { motion, AnimatePresence } from "framer-motion";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     role: "facility",
     rememberDevice: false
   });
+  const navigate = useNavigate();
+
+  const DEMO_EMAIL = "freedomtekfacility@gmail.com";
+  const DEMO_PASSWORD = "12345678";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     setIsSubmitting(true);
     
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Show message that login is inactive
-    alert("Login functionality is currently inactive. This is a demo interface.");
-    
-    setIsSubmitting(false);
+    await new Promise(resolve => setTimeout(resolve, 1200));
+
+    if (
+      formData.email === DEMO_EMAIL.trim() &&
+      formData.password === DEMO_PASSWORD
+    ) {
+      navigate("/portal/facility");
+    } else {
+      setErrorMessage(
+        "Invalid credentials. Use correct email and password to login."
+      );
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // Only Facility portal is available from this screen
   const portalTypes = [
-    { value: "facility", label: "Facility Portal", icon: Building2, color: "from-blue-500/20 to-blue-600/20" },
-    { value: "family", label: "Family Portal", icon: Users, color: "from-accent/20 to-pink-600/20" },
-    { value: "admin", label: "Admin Portal", icon: Shield, color: "from-purple-500/20 to-purple-600/20" },
+    {
+      value: "facility",
+      label: "Facility Portal",
+      icon: Building2,
+      color: "from-blue-500/20 to-blue-600/20"
+    }
   ];
 
   const securityFeatures = [
@@ -113,7 +132,7 @@ const Login = () => {
                 </h1>
                 
                 <p className="text-base md:text-lg text-[color:var(--foreground-muted)] max-w-xl mb-8 leading-relaxed">
-                  Centralized access for facility staff, families, and administrators. 
+                  Centralized access for facility staff and administrators.
                   Encrypted by default, audited by design.
                 </p>
 
@@ -145,7 +164,7 @@ const Login = () => {
                   </div>
                 </motion.div>
 
-                {/* Portal Cards */}
+                {/* Portal Cards (Facility only) */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -173,15 +192,13 @@ const Login = () => {
                         </div>
                       </div>
                       <p className="text-xs text-[color:var(--foreground-muted)] leading-relaxed">
-                        {portal.value === "facility" && "Staff tools, monitoring, and controls in one place."}
-                        {portal.value === "family" && "Messaging, calls, and deposits with clear pricing."}
-                        {portal.value === "admin" && "Configurability, reporting, and audit-ready exports."}
+                        Staff tools, monitoring, and controls in one place.
                       </p>
                     </motion.div>
                   ))}
                 </motion.div>
 
-                {/* Info Alert */}
+                {/* Demo Credentials Info */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -191,10 +208,9 @@ const Login = () => {
                   <div className="flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium mb-1">Login Functionality</p>
+                      <p className="text-sm font-medium mb-1">Demo Facility Portal Login</p>
                       <p className="text-xs text-[color:var(--foreground-muted)]">
-                        This login interface is for demonstration purposes only. 
-                        Actual authentication functionality is currently inactive.
+                        Use <span className="font-mono">freedomtekfacility@gmail.com</span> and password <span className="font-mono">12345678</span> to access the facility portal demo.
                       </p>
                     </div>
                   </div>
@@ -301,7 +317,7 @@ const Login = () => {
                       </div>
                     </motion.div>
 
-                    {/* Role Selection */}
+                    {/* Role Selection (Facility only) */}
                     <motion.div
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -319,11 +335,7 @@ const Login = () => {
                           className="w-full rounded-2xl bg-background/80 border border-[color:var(--border-subtle)] px-4 py-3.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-transparent transition-all duration-300 appearance-none"
                           disabled={isSubmitting}
                         >
-                          {portalTypes.map((portal) => (
-                            <option key={portal.value} value={portal.value}>
-                              {portal.label}
-                            </option>
-                          ))}
+                          <option value="facility">Facility Portal</option>
                         </select>
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
                           <ArrowRight className="w-4 h-4 text-[color:var(--foreground-muted)] rotate-90" />
@@ -357,7 +369,7 @@ const Login = () => {
                       </button>
                     </motion.div>
 
-                    {/* Submit Button - INACTIVE */}
+                    {/* Submit Button */}
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -365,10 +377,13 @@ const Login = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
+                      <p className="text-[11px] text-center text-[color:var(--foreground-muted)] mb-2">
+                        Demo email: <span className="font-mono">freedomtekfacility@gmail.com</span> &mdash; Demo password: <span className="font-mono">12345678</span>
+                      </p>
                       <Button
                         type="submit"
-                        disabled={isSubmitting || true} // Always disabled as requested
-                        className="w-full rounded-2xl bg-gradient-to-r from-accent/60 to-accent/40 text-accent-foreground hover:from-accent/70 hover:to-accent/50 h-12 text-base font-medium relative overflow-hidden cursor-not-allowed opacity-70"
+                        disabled={isSubmitting}
+                        className="w-full rounded-2xl bg-gradient-to-r from-accent to-accent/90 text-accent-foreground hover:from-accent hover:to-accent h-12 text-base font-medium relative overflow-hidden"
                       >
                         {isSubmitting ? (
                           <>
@@ -379,13 +394,13 @@ const Login = () => {
                             >
                               <Lock className="w-5 h-5" />
                             </motion.div>
-                            Authenticating...
+                            Signing in...
                           </>
                         ) : (
                           <>
                             <div className="flex items-center gap-2">
                               <LogIn className="w-5 h-5" />
-                              Login Inactive (Demo)
+                              Sign in to Facility Portal
                             </div>
                           </>
                         )}
@@ -396,9 +411,11 @@ const Login = () => {
                           transition={{ duration: 0.8 }}
                         />
                       </Button>
-                      <p className="text-xs text-center text-[color:var(--foreground-muted)] mt-2">
-                        Login functionality is disabled for this demo interface
-                      </p>
+                      {errorMessage && (
+                        <p className="text-xs text-center text-red-400 mt-2">
+                          {errorMessage}
+                        </p>
+                      )}
                     </motion.div>
 
                     {/* Terms */}
