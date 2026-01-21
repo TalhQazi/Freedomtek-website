@@ -90,12 +90,8 @@ const Contact = () => {
     
     setIsSubmitting(true);
     
-    // Simulate API call with timeout
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Using Formspree endpoint (dummy form)
     try {
-      const response = await fetch("https://formspree.io/f/xdoqeywg", {
+      const response = await fetch("http://localhost:4000/api/contact-messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,20 +99,21 @@ const Contact = () => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          facility: formData.facility,
+          agency: formData.facility,
           role: formData.role,
           message: formData.message,
-          _subject: `New Contact Form Submission from ${formData.name}`,
         }),
       });
-      
-      if (response.ok) {
-        setIsSubmitted(true);
-        setFormData({ name: "", email: "", facility: "", role: "", message: "" });
+
+      if (!response.ok) {
+        throw new Error("Contact submission failed");
       }
+
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", facility: "", role: "", message: "" });
     } catch (error) {
       console.error("Form submission error:", error);
-      // Even if API fails, show success for demo purposes
+      // Even if API fails, keep the UX simple
       setIsSubmitted(true);
       setFormData({ name: "", email: "", facility: "", role: "", message: "" });
     } finally {

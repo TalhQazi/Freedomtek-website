@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Download, Shield, Zap, Lock, Sparkles, CheckCircle, Tablet, Users } from "lucide-react";
+import { ArrowRight, Download, Shield, Zap, Lock, Sparkles, CheckCircle, Tablet, Users, Smartphone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Enhanced animation variants
@@ -328,6 +328,39 @@ export function Hero() {
                 </Button>
               </motion.div>
             </motion.div>
+
+            {/* Family App Store Badges (UI only, non-clickable for now) */}
+            {/* <motion.div
+              variants={childVariants}
+              className="mb-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4"
+            >
+              <p className="text-xs sm:text-sm text-white/70 uppercase tracking-[0.18em]">
+                Download the FreedomTek ae Family App
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  size="sm"
+                  className="rounded-2xl bg-white text-black hover:bg-white/90 px-3 sm:px-4 h-9 sm:h-10 shadow-md flex items-center gap-2 text-xs sm:text-sm"
+                  asChild
+                >
+                  <a href="#" onClick={(e) => e.preventDefault()}>
+                    <Smartphone className="w-3.5 h-3.5" />
+                    <span className="font-semibold tracking-wide">App Store</span>
+                  </a>
+                </Button>
+
+                <Button
+                  size="sm"
+                  className="rounded-2xl bg-[color:var(--tile-blue)] text-white hover:bg-[color:var(--tile-blue)]/90 px-3 sm:px-4 h-9 sm:h-10 shadow-md flex items-center gap-2 text-xs sm:text-sm"
+                  asChild
+                >
+                  <a href="#" onClick={(e) => e.preventDefault()}>
+                    <Play className="w-3.5 h-3.5" />
+                    <span className="font-semibold tracking-wide">Google Play</span>
+                  </a>
+                </Button>
+              </div>
+            </motion.div> */}
 
             {/* Stats Bar */}
             <motion.div

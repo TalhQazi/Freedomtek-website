@@ -19,7 +19,7 @@ import Press from "./pages/Press";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Accessibility from "./pages/Accessibility";
-import FacilityLayout, { FacilityDashboardHome, FacilityDemoRequests, FacilityContactForms } from "./pages/facility/Dashboard";
+import FacilityLayout, { FacilityDashboardHome, FacilityDemoRequests, FacilityContactForms, FacilityRfpRequests } from "./pages/facility/Dashboard";
 import FamilyPortal from "./pages/FamilyPortal";
 import AdminPortal from "./pages/AdminPortal";
 import Solutions from "./pages/Solutions";
@@ -71,6 +71,7 @@ const App = () => (
             <Route index element={<FacilityDashboardHome />} />
             <Route path="demo-requests" element={<FacilityDemoRequests />} />
             <Route path="contact-forms" element={<FacilityContactForms />} />
+            <Route path="rfp-requests" element={<FacilityRfpRequests />} />
           </Route>
           <Route path="/portal/family" element={<FamilyPortal />} />
           <Route path="/portal/admin" element={<AdminPortal />} />

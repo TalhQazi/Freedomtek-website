@@ -601,6 +601,112 @@ const Pricing = () => {
           </div>
         </section>
 
+        {/* Transparency & Policy */}
+        <section className="py-16 relative border-t border-white/5 bg-gradient-to-b from-background/60 via-background/80 to-background">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6 }}
+              className="max-w-3xl mx-auto text-center mb-14"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/40 border border-secondary/70 text-xs tracking-[0.16em] uppercase text-foreground/80 font-medium mb-4">
+                <Shield className="w-4 h-4 text-accent" />
+                <span>Transparency Policy</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Built To End Hidden Fees.
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                FreedomTek ae is designed as a transparency-first communications platform.
+                No rounding tricks, no surprise surcharges, and clear statements for facilities
+                and families.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5 }}
+                className="relative rounded-3xl p-6 bg-gradient-to-br from-black/60 to-black/40 border border-white/10 shadow-xl"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <DollarSign className="w-5 h-5 text-accent" />
+                  <h3 className="font-semibold text-sm tracking-[0.14em] uppercase">No Hidden Fees</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-foreground/80 text-left">
+                  <li>
+                     b7 Clear line items for every charge on facility and family statements.
+                  </li>
+                  <li>
+                     b7 No mystery "platform fees" or padded surcharges.
+                  </li>
+                  <li>
+                     b7 Rates on this page match what appears on invoices.
+                  </li>
+                </ul>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="relative rounded-3xl p-6 bg-gradient-to-br from-black/60 to-black/40 border border-white/10 shadow-xl"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <Phone className="w-5 h-5 text-accent" />
+                  <h3 className="font-semibold text-sm tracking-[0.14em] uppercase">Per-Second Billing</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-foreground/80 text-left">
+                  <li>
+                     b7 Voice calls billed by the second  f7 published rate per minute.
+                  </li>
+                  <li>
+                     b7 No automatic round-up to the nearest whole minute.
+                  </li>
+                  <li>
+                     b7 Session start/stop times appear on statements for audit.
+                  </li>
+                </ul>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="relative rounded-3xl p-6 bg-gradient-to-br from-black/60 to-black/40 border border-white/10 shadow-xl"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <Sparkles className="w-5 h-5 text-accent" />
+                  <h3 className="font-semibold text-sm tracking-[0.14em] uppercase">Procurement-Ready</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-foreground/80 text-left">
+                  <li>
+                     b7 Facility-friendly statements with ADP, rate, and usage clearly broken out.
+                  </li>
+                  <li>
+                     b7 Language aligned with RFP and oversight expectations.
+                  </li>
+                  <li>
+                     b7 Pair this page with the RFP packet for complete documentation.
+                  </li>
+                </ul>
+              </motion.div>
+            </div>
+
+            <p className="mt-10 text-center text-sm text-foreground/70 max-w-3xl mx-auto">
+              Every pricing engagement includes a written schedule of charges, sample statements,
+              and a transparency rider that can be attached directly to your contract.
+              FreedomTek ae was built to withstand public, media, and legislative scrutiny.
+            </p>
+          </div>
+        </section>
+
         {/* Cost Estimator */}
         <section className="py-16 bg-gradient-to-b from-transparent via-[color:var(--background-elevated)]/30 to-transparent relative">
           <div className="container mx-auto px-6">

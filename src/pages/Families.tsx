@@ -313,7 +313,7 @@ const Families = () => {
                       className="rounded-2xl bg-accent text-accent-foreground hover:bg-accent/90 px-7 shadow-sm relative overflow-hidden group"
                       asChild
                     >
-                      <a href="#" target="_blank" rel="noopener noreferrer">
+                      <a href="#" onClick={(e) => e.preventDefault()}>
                         <Smartphone className="w-5 h-5 mr-2 relative z-10" />
                         <span className="relative z-10">Download iOS App</span>
                         <motion.div
@@ -586,7 +586,7 @@ const Families = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button className="rounded-2xl bg-accent hover:bg-accent/90 text-accent-foreground px-6 relative overflow-hidden group" asChild>
-                      <a href="#">
+                      <a href="#" onClick={(e) => e.preventDefault()}>
                         <Smartphone className="w-4 h-4 mr-2 relative z-10" />
                         <span className="relative z-10">App Store</span>
                         <motion.div
@@ -604,7 +604,7 @@ const Families = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button className="rounded-2xl bg-primary text-foreground hover:bg-primary/90 px-6 relative overflow-hidden group" asChild>
-                      <a href="#">
+                      <a href="#" onClick={(e) => e.preventDefault()}>
                         <Download className="w-4 h-4 mr-2 relative z-10" />
                         <span className="relative z-10">Google Play</span>
                         <motion.div

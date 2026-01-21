@@ -71,31 +71,57 @@ const Demo = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    toast({
-      title: "Demo Request Received! 🎉",
-      description: "We'll be in touch within 24 hours to schedule your demo.",
-    });
     
-    setIsSubmitted(true);
-    setIsSubmitting(false);
-    
-    // Reset form after showing success for a while
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        agency: "",
-        facilityType: "",
-        population: "",
-        message: "",
+    try {
+      const response = await fetch("http://localhost:4000/api/demo-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          agency: formData.agency,
+          role: formData.facilityType,
+          inmateCount: formData.population,
+          notes: formData.message,
+        }),
       });
-      setIsSubmitted(false);
-    }, 5000);
+
+      if (!response.ok) {
+        throw new Error("Demo request failed");
+      }
+
+      toast({
+        title: "Demo Request Received! 🎉",
+        description: "We'll be in touch within 24 hours to schedule your demo.",
+      });
+      
+      setIsSubmitted(true);
+      
+      // Reset form after showing success for a while
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          agency: "",
+          facilityType: "",
+          population: "",
+          message: "",
+        });
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      toast({
+        title: "Unable to submit demo request",
+        description: "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {

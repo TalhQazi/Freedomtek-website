@@ -224,6 +224,7 @@ const Resources = () => {
     name: "",
     email: "",
     agency: "",
+    facilitySize: "",
     requestedDocs: [] as string[]
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -234,12 +235,9 @@ const Resources = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
+    
     try {
-      const response = await fetch("https://formspree.io/f/xdoqeywg", {
+      const response = await fetch("http://localhost:4000/api/rfp-requests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -248,21 +246,23 @@ const Resources = () => {
           name: formData.name,
           email: formData.email,
           agency: formData.agency,
-          requestedDocs: selectedDocs.join(", "),
-          _subject: `Resource Request from ${formData.name}`,
+          facilitySize: formData.facilitySize,
+          requestedDocs: selectedDocs,
         }),
       });
 
-      if (response.ok) {
-        toast({
-          title: "Documents Sent!",
-          description: "We've sent the requested documents to your email.",
-          variant: "default",
-        });
-        setIsSubmitted(true);
-        setFormData({ name: "", email: "", agency: "", requestedDocs: [] });
-        setSelectedDocs([]);
+      if (!response.ok) {
+        throw new Error("RFP request failed");
       }
+
+      toast({
+        title: "Documents Sent!",
+        description: "We've sent the requested documents to your email.",
+        variant: "default",
+      });
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", agency: "", facilitySize: "", requestedDocs: [] });
+      setSelectedDocs([]);
     } catch (error) {
       toast({
         title: "Request Received",
@@ -270,7 +270,7 @@ const Resources = () => {
         variant: "default",
       });
       setIsSubmitted(true);
-      setFormData({ name: "", email: "", agency: "", requestedDocs: [] });
+      setFormData({ name: "", email: "", agency: "", facilitySize: "", requestedDocs: [] });
       setSelectedDocs([]);
     } finally {
       setIsSubmitting(false);
@@ -594,7 +594,8 @@ const Resources = () => {
                       </h3>
                       
                       <p className="text-muted-foreground mb-8">
-                        We've sent the selected documents to your email. You should receive them shortly.
+                        We've emailed your RFP response packet and any selected documents to the address you provided.
+                        You should receive them shortly.
                       </p>
                       
                       <Button

@@ -27,18 +27,32 @@ const Login = () => {
     setErrorMessage(null);
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1200));
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/facility-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    if (
-      formData.email === DEMO_EMAIL.trim() &&
-      formData.password === DEMO_PASSWORD
-    ) {
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        const message = errorData?.error || "Invalid credentials. Use correct email and password to login.";
+        setErrorMessage(message);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // For now we ignore the token/user and just navigate to the facility portal
+      // using the backend as the source of truth for valid credentials.
+      await response.json();
       navigate("/portal/facility");
-    } else {
-      setErrorMessage(
-        "Invalid credentials. Use correct email and password to login."
-      );
+    } catch (error) {
+      setErrorMessage("Unable to reach login service. Please try again in a moment.");
       setIsSubmitting(false);
     }
   };
