@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MessageSquare, ArrowRight, Sparkles, CheckCircle, Users, Building, Send, Shield, Clock, MapPin } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -62,9 +62,6 @@ const Contact = () => {
     role: "",
     message: ""
   });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
@@ -81,44 +78,6 @@ const Contact = () => {
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) return;
-    
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch("http://localhost:4000/api/contact-messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          agency: formData.facility,
-          role: formData.role,
-          message: formData.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Contact submission failed");
-      }
-
-      setIsSubmitted(true);
-      setFormData({ name: "", email: "", facility: "", role: "", message: "" });
-    } catch (error) {
-      console.error("Form submission error:", error);
-      // Even if API fails, keep the UX simple
-      setIsSubmitted(true);
-      setFormData({ name: "", email: "", facility: "", role: "", message: "" });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -269,183 +228,141 @@ const Contact = () => {
                   animate="float"
                 />
 
-                <AnimatePresence mode="wait">
-                  {isSubmitted ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="rounded-3xl bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-xl border border-white/10 p-12 shadow-2xl shadow-black/20 text-center"
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  action="https://formspree.io/f/mgvnzqdp"
+                  method="POST"
+                  onSubmit={(e) => {
+                    if (!validateForm()) {
+                      e.preventDefault();
+                    }
+                  }}
+                  className="space-y-6 rounded-3xl bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-xl border border-white/10 p-8 shadow-2xl shadow-black/20"
+                >
+                  {/* Name and Email */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                        <span>Name</span>
+                        {errors.name && (
+                          <span className="text-red-400 text-xs">• {errors.name}</span>
+                        )}
+                      </label>
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
+                          errors.name ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
+                        }`}
+                        placeholder="Full name"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                        <span>Work Email</span>
+                        {errors.email && (
+                          <span className="text-red-400 text-xs">• {errors.email}</span>
+                        )}
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
+                          errors.email ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
+                        }`}
+                        placeholder="name@agency.gov"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Facility and Role */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                        <span>Facility / Agency</span>
+                        {errors.facility && (
+                          <span className="text-red-400 text-xs">• {errors.facility}</span>
+                        )}
+                      </label>
+                      <input
+                        name="facility"
+                        value={formData.facility}
+                        onChange={handleChange}
+                        className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
+                          errors.facility ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
+                        }`}
+                        placeholder="County Jail, DOC, etc."
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-white/80">Role</label>
+                      <input
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        className="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-accent/50 transition-all duration-300"
+                        placeholder="Sheriff, IT, Procurement, etc."
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                      <span>How can we help?</span>
+                      {errors.message && (
+                        <span className="text-red-400 text-xs">• {errors.message}</span>
+                      )}
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={5}
+                      className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
+                        errors.message ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
+                      }`}
+                      placeholder="Deployment timelines, current vendor, modules you're interested in..."
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      type="submit"
+                      className="w-full mt-2 rounded-2xl bg-gradient-to-r from-accent via-accent/90 to-accent/80 hover:from-accent hover:via-accent hover:to-accent shadow-2xl shadow-accent/30 h-14 text-lg font-semibold group overflow-hidden relative"
                     >
-                      <motion.div
-                        className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center mx-auto mb-8"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200 }}
-                      >
-                        <CheckCircle className="w-10 h-10 text-white" />
-                      </motion.div>
-                      
-                      <h3 className="text-2xl font-bold mb-4 text-white">
-                        Message Sent Successfully!
-                      </h3>
-                      
-                      <p className="text-muted-foreground mb-8">
-                        Thank you for contacting FreedomTek. Our team will get back to you within 2 business hours.
-                      </p>
-                      
-                      <Button
-                        onClick={() => setIsSubmitted(false)}
-                        className="rounded-2xl bg-gradient-to-r from-accent via-accent/90 to-accent/80 hover:from-accent hover:via-accent hover:to-accent shadow-2xl shadow-accent/30"
-                      >
-                        Send Another Message
-                      </Button>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleSubmit}
-                      className="space-y-6 rounded-3xl bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-xl border border-white/10 p-8 shadow-2xl shadow-black/20"
-                    >
-                      {/* Name and Email */}
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                            <span>Name</span>
-                            {errors.name && (
-                              <span className="text-red-400 text-xs">• {errors.name}</span>
-                            )}
-                          </label>
-                          <input
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
-                              errors.name ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
-                            }`}
-                            placeholder="Full name"
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                            <span>Work Email</span>
-                            {errors.email && (
-                              <span className="text-red-400 text-xs">• {errors.email}</span>
-                            )}
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
-                              errors.email ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
-                            }`}
-                            placeholder="name@agency.gov"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Facility and Role */}
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                            <span>Facility / Agency</span>
-                            {errors.facility && (
-                              <span className="text-red-400 text-xs">• {errors.facility}</span>
-                            )}
-                          </label>
-                          <input
-                            name="facility"
-                            value={formData.facility}
-                            onChange={handleChange}
-                            className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
-                              errors.facility ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
-                            }`}
-                            placeholder="County Jail, DOC, etc."
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-white/80">Role</label>
-                          <input
-                            name="role"
-                            value={formData.role}
-                            onChange={handleChange}
-                            className="w-full rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-accent/50 transition-all duration-300"
-                            placeholder="Sheriff, IT, Procurement, etc."
-                          />
-                        </div>
-                      </div>
-
-                      {/* Message */}
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                          <span>How can we help?</span>
-                          {errors.message && (
-                            <span className="text-red-400 text-xs">• {errors.message}</span>
-                          )}
-                        </label>
-                        <textarea
-                          name="message"
-                          value={formData.message}
-                          onChange={handleChange}
-                          rows={5}
-                          className={`w-full rounded-2xl bg-white/5 border px-4 py-3 text-white placeholder:text-white/40 focus:outline-none transition-all duration-300 ${
-                            errors.message ? 'border-red-500/50' : 'border-white/10 focus:border-accent/50'
-                          }`}
-                          placeholder="Deployment timelines, current vendor, modules you're interested in..."
-                        />
-                      </div>
-
-                      {/* Submit Button */}
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full mt-2 rounded-2xl bg-gradient-to-r from-accent via-accent/90 to-accent/80 hover:from-accent hover:via-accent hover:to-accent shadow-2xl shadow-accent/30 h-14 text-lg font-semibold group overflow-hidden relative"
+                      <span className="relative z-10 flex items-center justify-center gap-3">
+                        <Send className="w-5 h-5" />
+                        Submit Message
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 2, repeat: Infinity }}
                         >
-                          {isSubmitting ? (
-                            <span className="flex items-center gap-3">
-                              <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                              />
-                              Sending...
-                            </span>
-                          ) : (
-                            <span className="relative z-10 flex items-center justify-center gap-3">
-                              <Send className="w-5 h-5" />
-                              Submit Message
-                              <motion.div
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                              >
-                                <ArrowRight className="w-5 h-5" />
-                              </motion.div>
-                            </span>
-                          )}
-                          <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-                        </Button>
-                      </motion.div>
+                          <ArrowRight className="w-5 h-5" />
+                        </motion.div>
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                    </Button>
+                  </motion.div>
 
-                      {/* Footer Note */}
-                      <p className="pt-4 text-xs leading-relaxed text-white/40">
-                        This form is for facility and agency use. For family support, please use the in-app
-                        support tools or visit the Families page for more information.
-                      </p>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
+                  {/* Footer Note */}
+                  <p className="pt-4 text-xs leading-relaxed text-white/40">
+                    This form is for facility and agency use. For family support, please use the in-app
+                    support tools or visit the Families page for more information.
+                  </p>
+                </motion.form>
               </motion.div>
 
               {/* Enhanced Contact Info */}

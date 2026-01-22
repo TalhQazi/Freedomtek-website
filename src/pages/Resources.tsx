@@ -31,7 +31,6 @@ import {
   Video,
   MessageSquare,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -227,55 +226,8 @@ const Resources = () => {
     facilitySize: "",
     requestedDocs: [] as string[]
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
-  const { toast } = useToast();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch("http://localhost:4000/api/rfp-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          agency: formData.agency,
-          facilitySize: formData.facilitySize,
-          requestedDocs: selectedDocs,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("RFP request failed");
-      }
-
-      toast({
-        title: "Documents Sent!",
-        description: "We've sent the requested documents to your email.",
-        variant: "default",
-      });
-      setIsSubmitted(true);
-      setFormData({ name: "", email: "", agency: "", facilitySize: "", requestedDocs: [] });
-      setSelectedDocs([]);
-    } catch (error) {
-      toast({
-        title: "Request Received",
-        description: "We'll send the requested documents to your email shortly.",
-        variant: "default",
-      });
-      setIsSubmitted(true);
-      setFormData({ name: "", email: "", agency: "", facilitySize: "", requestedDocs: [] });
-      setSelectedDocs([]);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  
 
   const handleDocSelect = (docTitle: string) => {
     setSelectedDocs(prev => 
@@ -572,47 +524,13 @@ const Resources = () => {
                 />
 
                 <AnimatePresence mode="wait">
-                  {isSubmitted ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="rounded-3xl bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-xl border border-white/10 p-12 shadow-2xl shadow-black/20 text-center"
-                    >
-                      <motion.div
-                        className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-400 flex items-center justify-center mx-auto mb-8"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200 }}
-                      >
-                        <CheckCircle className="w-10 h-10 text-white" />
-                      </motion.div>
-                      
-                      <h3 className="text-2xl font-bold mb-4 text-white">
-                        Documents Sent!
-                      </h3>
-                      
-                      <p className="text-muted-foreground mb-8">
-                        We've emailed your RFP response packet and any selected documents to the address you provided.
-                        You should receive them shortly.
-                      </p>
-                      
-                      <Button
-                        onClick={() => setIsSubmitted(false)}
-                        className="rounded-2xl bg-gradient-to-r from-accent via-accent/90 to-accent/80 hover:from-accent hover:via-accent hover:to-accent shadow-2xl shadow-accent/30"
-                      >
-                        Request More Documents
-                      </Button>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="rounded-3xl bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-xl border border-white/10 p-8 shadow-2xl shadow-black/20"
-                    >
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="rounded-3xl bg-gradient-to-br from-white/5 to-white/2 backdrop-blur-xl border border-white/10 p-8 shadow-2xl shadow-black/20"
+                  >
                       <div className="flex items-center gap-4 mb-8">
                         <motion.div
                           className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center"
@@ -632,10 +550,15 @@ const Resources = () => {
                         including pricing, security documentation, and implementation details.
                       </p>
 
-                      <form onSubmit={handleSubmit} className="space-y-6">
+                      <form
+                        action="https://formspree.io/f/mgvnzqdp"
+                        method="POST"
+                        className="space-y-6"
+                      >
                         <div className="space-y-2">
                           <label className="text-sm font-medium text-white/80">Full Name</label>
                           <Input
+                            name="name"
                             value={formData.name}
                             onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                             placeholder="John Smith"
@@ -648,6 +571,7 @@ const Resources = () => {
                           <label className="text-sm font-medium text-white/80">Work Email</label>
                           <Input
                             type="email"
+                            name="email"
                             value={formData.email}
                             onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                             placeholder="john@county.gov"
@@ -659,6 +583,7 @@ const Resources = () => {
                         <div className="space-y-2">
                           <label className="text-sm font-medium text-white/80">Agency / Facility</label>
                           <Input
+                            name="agency"
                             value={formData.agency}
                             onChange={(e) => setFormData(prev => ({ ...prev, agency: e.target.value }))}
                             placeholder="County Sheriff's Office"
@@ -697,38 +622,34 @@ const Resources = () => {
                           </motion.div>
                         )}
 
+                        {/* Hidden field for selected documents so Formspree receives them */}
+                        <input
+                          type="hidden"
+                          name="requestedDocs"
+                          value={selectedDocs.join(", ")}
+                        />
+
                         <motion.div
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <Button
                             type="submit"
-                            disabled={isSubmitting || selectedDocs.length === 0}
+                            disabled={selectedDocs.length === 0}
                             className="w-full rounded-2xl bg-gradient-to-r from-accent via-accent/90 to-accent/80 hover:from-accent hover:via-accent hover:to-accent shadow-2xl shadow-accent/30 h-14 text-lg font-semibold group overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            {isSubmitting ? (
-                              <span className="flex items-center gap-3">
-                                <motion.div
-                                  animate={{ rotate: 360 }}
-                                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                                />
-                                Sending...
-                              </span>
-                            ) : (
-                              <span className="relative z-10 flex items-center justify-center gap-3">
-                                <Download className="w-5 h-5" />
-                                {selectedDocs.length > 0 
-                                  ? `Request ${selectedDocs.length} Document${selectedDocs.length > 1 ? 's' : ''}`
-                                  : "Select Documents First"}
-                                <motion.div
-                                  animate={{ x: [0, 5, 0] }}
-                                  transition={{ duration: 2, repeat: Infinity }}
-                                >
-                                  <ArrowRight className="w-5 h-5" />
-                                </motion.div>
-                              </span>
-                            )}
+                            <span className="relative z-10 flex items-center justify-center gap-3">
+                              <Download className="w-5 h-5" />
+                              {selectedDocs.length > 0 
+                                ? `Request ${selectedDocs.length} Document${selectedDocs.length > 1 ? 's' : ''}`
+                                : "Select Documents First"}
+                              <motion.div
+                                animate={{ x: [0, 5, 0] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                              >
+                                <ArrowRight className="w-5 h-5" />
+                              </motion.div>
+                            </span>
                             <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                           </Button>
                         </motion.div>
@@ -741,7 +662,6 @@ const Resources = () => {
                         </span>
                       </div>
                     </motion.div>
-                  )}
                 </AnimatePresence>
               </motion.div>
             </div>

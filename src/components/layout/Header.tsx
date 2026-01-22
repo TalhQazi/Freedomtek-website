@@ -181,7 +181,7 @@ export function Header() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <Button
+              {/* <Button
                 variant="ghost"
                 size="sm"
                 className="text-gray-700 hover:text-[#1a56db] hover:bg-blue-50 rounded-xl"
@@ -191,7 +191,7 @@ export function Header() {
                   <LogIn className="w-4 h-4" />
                   <span>Login</span>
                 </Link>
-              </Button>
+              </Button> */}
             </motion.div>
             
             <motion.div
@@ -342,7 +342,7 @@ export function Header() {
 
               {/* Mobile CTA Buttons */}
               <div className="mt-6 pt-4 border-t border-gray-200 space-y-3">
-                <Button
+                {/* <Button
                   variant="outline"
                   className="w-full rounded-xl h-11 text-sm border-gray-300 text-gray-700 hover:text-[#1a56db] hover:border-blue-300 hover:bg-blue-50"
                   asChild
@@ -351,7 +351,7 @@ export function Header() {
                     <LogIn className="w-4 h-4 mr-2" />
                     Login to Portal
                   </Link>
-                </Button>
+                </Button> */}
                 
                 <Button
                   className="w-full rounded-2xl bg-gradient-to-r from-[#1a56db] to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 h-11 text-sm shadow-lg"

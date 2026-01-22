@@ -214,14 +214,14 @@ export function ModuleGrid() {
               </span>{" "}
               <span className="relative">
                 {/* Outline/Shadow effect for Complete Control */}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent to-accent/90 animate-gradient-x relative z-10 drop-shadow-[0_2px_8px_rgba(var(--accent),0.6)]">
+                {/* <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent to-accent/90 animate-gradient-x relative z-10 drop-shadow-[0_2px_8px_rgba(var(--accent),0.6)]">
                   Complete Control.
-                </span>
+                </span> */}
                 {/* Text outline effect */}
-                <span className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-white/40 to-white/20 animate-gradient-x [text-shadow:_0_0_8px_rgba(255,255,255,0.5)]">
+                {/* <span className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-white/40 to-white/20 animate-gradient-x [text-shadow:_0_0_8px_rgba(255,255,255,0.5)]">
                   Complete Control.
-                </span>
-              </span>
+                </span> */}
+            </span>
             </motion.h2>
 
             <motion.p

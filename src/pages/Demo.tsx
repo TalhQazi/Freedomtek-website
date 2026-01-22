@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,6 @@ import {
   Target,
   Zap,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 const benefits = [
   "See the complete tablet UI in action",
@@ -64,81 +63,9 @@ const Demo = () => {
     population: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const { toast } = useToast();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch("http://localhost:4000/api/demo-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          agency: formData.agency,
-          role: formData.facilityType,
-          inmateCount: formData.population,
-          notes: formData.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Demo request failed");
-      }
-
-      toast({
-        title: "Demo Request Received! 🎉",
-        description: "We'll be in touch within 24 hours to schedule your demo.",
-      });
-      
-      setIsSubmitted(true);
-      
-      // Reset form after showing success for a while
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          agency: "",
-          facilityType: "",
-          population: "",
-          message: "",
-        });
-        setIsSubmitted(false);
-      }, 5000);
-    } catch (error) {
-      toast({
-        title: "Unable to submit demo request",
-        description: "Please try again in a moment.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const resetForm = () => {
-    setIsSubmitted(false);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      agency: "",
-      facilityType: "",
-      population: "",
-      message: "",
-    });
   };
 
   return (
@@ -256,74 +183,12 @@ const Demo = () => {
               >
                 <div className="rounded-2xl md:rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-[color:var(--background-elevated)] to-background border border-[color:var(--separator)] shadow-xl shadow-black/10">
                   
-                  {/* Success State */}
-                  <AnimatePresence mode="wait">
-                    {isSubmitted ? (
-                      <motion.div
-                        key="success"
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                        className="text-center py-8 sm:py-12"
-                      >
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", delay: 0.2 }}
-                          className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-green-600/20 flex items-center justify-center mx-auto mb-6"
-                        >
-                          <ThumbsUp className="w-10 h-10 text-green-500" />
-                        </motion.div>
-                        
-                        <motion.h2
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 }}
-                          className="text-2xl sm:text-3xl font-bold mb-4"
-                        >
-                          Request Submitted! 🎉
-                        </motion.h2>
-                        
-                        <motion.p
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.4 }}
-                          className="text-[color:var(--foreground-muted)] mb-8 text-sm sm:text-base"
-                        >
-                          Thank you for your interest! Our team will contact you within 
-                          <span className="text-accent font-semibold"> 24 hours</span> to schedule your personalized demo.
-                        </motion.p>
-                        
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5 }}
-                          className="flex flex-col sm:flex-row gap-3"
-                        >
-                          <Button
-                            onClick={resetForm}
-                            variant="outline"
-                            className="rounded-xl flex-1"
-                          >
-                            Submit Another Request
-                          </Button>
-                          <Button
-                            asChild
-                            className="rounded-xl bg-accent hover:bg-accent/90 flex-1"
-                          >
-                            <a href="/">
-                              Return Home
-                            </a>
-                          </Button>
-                        </motion.div>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="form"
-                        initial={{ opacity: 1 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                      >
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
                         <div className="flex items-center gap-3 mb-6">
                           <motion.div
                             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-secondary/60 to-secondary/80 flex items-center justify-center"
@@ -340,19 +205,23 @@ const Demo = () => {
                           </div>
                         </div>
                         
-                        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                        <form
+                          action="https://formspree.io/f/mgvnzqdp"
+                          method="POST"
+                          className="space-y-4 sm:space-y-5"
+                        >
                           <div className="grid sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                               <label className="text-sm font-medium text-foreground">
                                 Full Name *
                               </label>
                               <Input
+                                name="name"
                                 value={formData.name}
                                 onChange={(e) => handleChange("name", e.target.value)}
                                 placeholder="John Smith"
                                 required
                                 className="bg-background border-[color:var(--separator)] focus:border-accent h-11"
-                                disabled={isSubmitting}
                               />
                             </div>
                             <div className="space-y-2">
@@ -361,12 +230,12 @@ const Demo = () => {
                               </label>
                               <Input
                                 type="email"
+                                name="email"
                                 value={formData.email}
                                 onChange={(e) => handleChange("email", e.target.value)}
                                 placeholder="john@county.gov"
                                 required
                                 className="bg-background border-[color:var(--separator)] focus:border-accent h-11"
-                                disabled={isSubmitting}
                               />
                             </div>
                           </div>
@@ -378,11 +247,11 @@ const Demo = () => {
                               </label>
                               <Input
                                 type="tel"
+                                name="phone"
                                 value={formData.phone}
                                 onChange={(e) => handleChange("phone", e.target.value)}
                                 placeholder="(555) 123-4567"
                                 className="bg-background border-[color:var(--separator)] focus:border-accent h-11"
-                                disabled={isSubmitting}
                               />
                             </div>
                             <div className="space-y-2">
@@ -390,12 +259,12 @@ const Demo = () => {
                                 Agency / Facility *
                               </label>
                               <Input
+                                name="agency"
                                 value={formData.agency}
                                 onChange={(e) => handleChange("agency", e.target.value)}
                                 placeholder="County Sheriff's Office"
                                 required
                                 className="bg-background border-[color:var(--separator)] focus:border-accent h-11"
-                                disabled={isSubmitting}
                               />
                             </div>
                           </div>
@@ -408,7 +277,6 @@ const Demo = () => {
                               <Select
                                 value={formData.facilityType}
                                 onValueChange={(value) => handleChange("facilityType", value)}
-                                disabled={isSubmitting}
                               >
                                 <SelectTrigger className="bg-background border-[color:var(--separator)] focus:border-accent h-11">
                                   <SelectValue placeholder="Select type" />
@@ -429,7 +297,6 @@ const Demo = () => {
                               <Select
                                 value={formData.population}
                                 onValueChange={(value) => handleChange("population", value)}
-                                disabled={isSubmitting}
                               >
                                 <SelectTrigger className="bg-background border-[color:var(--separator)] focus:border-accent h-11">
                                   <SelectValue placeholder="Select range" />
@@ -450,30 +317,33 @@ const Demo = () => {
                               Anything specific you'd like to discuss?
                             </label>
                             <Textarea
+                              name="message"
                               value={formData.message}
                               onChange={(e) => handleChange("message", e.target.value)}
                               placeholder="Current challenges, specific features of interest, timeline, etc."
                               className="bg-background border-[color:var(--separator)] focus:border-accent min-h-[100px] resize-none"
-                              disabled={isSubmitting}
                             />
                           </div>
 
+                          <input
+                            type="hidden"
+                            name="facilityType"
+                            value={formData.facilityType}
+                          />
+                          <input
+                            type="hidden"
+                            name="population"
+                            value={formData.population}
+                          />
+
                           <Button
                             type="submit"
-                            disabled={isSubmitting}
                             className="w-full rounded-xl sm:rounded-2xl bg-gradient-to-r from-accent to-accent/90 text-accent-foreground hover:from-accent hover:to-accent h-12 text-base font-medium relative overflow-hidden group mt-2"
                           >
-                            {isSubmitting ? (
-                              <>
-                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                                Submitting...
-                              </>
-                            ) : (
-                              <>
-                                Request Demo
-                                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                              </>
-                            )}
+                            <>
+                              Request Demo
+                              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                            </>
                             <motion.div
                               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                               initial={{ x: "-100%" }}
@@ -505,8 +375,7 @@ const Demo = () => {
                           </div>
                         </div>
                       </motion.div>
-                    )}
-                  </AnimatePresence>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
