@@ -330,13 +330,14 @@ const MediaModule = () => {
                     transition={{ duration: 0.5 }}
                   >
                     <motion.img
-                      src="/meida2.jpeg"
+                      src="/media1.jpeg"
                       alt="FreedomTek secure media experience"
                       className="w-full h-full object-cover"
                       initial={{ scale: 1.1 }}
                       animate={{ scale: 1 }}
                       transition={{ duration: 1.2 }}
                     />
+                     
                     
                     {/* Overlay Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-transparent to-black/30" />
@@ -443,6 +444,7 @@ const MediaModule = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent to-accent/80 animate-gradient-x">
                   Content Categories
                 </span>
+                
               </motion.h2>
               <motion.p
                 className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
@@ -453,6 +455,7 @@ const MediaModule = () => {
               >
                 A comprehensive media library designed for rehabilitation and positive engagement.
               </motion.p>
+              
             </motion.div>
 
             <motion.div

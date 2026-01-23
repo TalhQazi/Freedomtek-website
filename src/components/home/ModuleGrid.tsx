@@ -270,7 +270,7 @@ export function ModuleGrid() {
             <div className="absolute -inset-4 bg-gradient-to-tr from-accent/50 via-transparent to-blue-600/50 opacity-80 blur-2xl" />
             <div className="relative rounded-[1.75rem] border-2 border-white/20 bg-black/60 backdrop-blur-xl shadow-2xl overflow-hidden">
               <motion.img
-                src="/1.jpeg"
+                src="/8.jpeg"
                 alt="FreedomTek module ecosystem"
                 className="w-full h-full object-cover max-h-[420px] brightness-110 contrast-125"
                 initial={{ scale: 1.05 }}

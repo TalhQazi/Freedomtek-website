@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Download, Shield, Zap, Lock, Sparkles, CheckCircle, Tablet, Users, Smartphone, Play } from "lucide-react";
+import { ArrowRight, Download, Shield, Zap, Lock, Sparkles, CheckCircle, Tablet, Users, Smartphone, Play, Star, ChevronRight, Video, MessageSquare, Phone, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Enhanced animation variants
@@ -53,6 +53,18 @@ const pulseGlowVariants = {
   }
 };
 
+const imageFloatVariants = {
+  float: {
+    y: [0, -20, 0],
+    rotate: [0, 1, -1, 0],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
@@ -71,7 +83,7 @@ export function Hero() {
       
       {/* Animated Particle Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {Array.from({ length: 30 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white/20 rounded-full"
@@ -226,46 +238,203 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Image Section - Center on Mobile */}
+          {/* ENHANCED Image Section - Amazing Styling */}
           <motion.div
             variants={childVariants}
             className="lg:col-span-5 xl:col-span-5 relative max-w-xl mx-auto w-full lg:flex lg:items-center lg:justify-center order-2 lg:order-2 my-4 lg:my-0"
           >
-            {/* Glow background */}
+            {/* Main Glow Effect */}
             <motion.div
-              className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-accent/40 via-transparent to-[hsl(var(--neon-blue))]/40 blur-2xl opacity-70"
+              className="absolute -inset-6 rounded-[3rem] bg-gradient-to-tr from-accent/30 via-transparent to-[hsl(var(--neon-blue))]/30 blur-3xl opacity-70"
               variants={pulseGlowVariants}
               animate="pulse"
             />
 
-            {/* Image card */}
-            <motion.div
-              className="relative rounded-3xl overflow-hidden border border-white/15 bg-white/5 backdrop-blur-xl shadow-2xl shadow-black/40 w-full"
-              variants={floatVariants}
-              animate="float"
-              whileHover={{ y: -10, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="aspect-[4/3] w-full">
-                <img
-                  src="/9.jpeg"
-                  alt="FreedomTek secure tablet experience"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            {/* Image cards container with stacking effect */}
+            <div className="relative space-y-8 lg:space-y-10">
+              {/* Primary Image Card - Enhanced */}
+              <motion.div
+                className="relative group"
+                variants={imageFloatVariants}
+                animate="float"
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                {/* Card with Glass Morphism */}
+                <div className="relative rounded-[2.5rem] overflow-hidden border-2 border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl shadow-2xl shadow-black/50">
+                  {/* Image Container with Shine Overlay */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src="/9.jpeg"
+                      alt="FreedomTek secure tablet experience"
+                      className="w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-700"
+                    />
+                    
+                    {/* Shine Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent via-white/50 to-transparent" />
+                    
+                    {/* Floating Icons Overlay */}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <motion.div
+                        className="w-8 h-8 rounded-full bg-gradient-to-r from-accent to-purple-500 flex items-center justify-center shadow-lg"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <Video className="w-4 h-4 text-white" />
+                      </motion.div>
+                      <motion.div
+                        className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                      >
+                        <MessageSquare className="w-4 h-4 text-white" />
+                      </motion.div>
+                    </div>
+                  </div>
 
-              {/* Overlay label */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-white/60 mb-1">Live in-facility view</p>
-                  <p className="text-sm sm:text-base font-semibold text-white">Secure communications in action</p>
+                  {/* Enhanced Overlay Label */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <div className="inline-flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="text-xs font-medium text-emerald-300 uppercase tracking-[0.2em]">Live Preview</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Secure Communications Platform</h3>
+                        <p className="text-sm text-white/70">Real-time messaging, video calls, and facility management</p>
+                      </div>
+                      <motion.div
+                        className="w-12 h-12 rounded-full bg-gradient-to-r from-accent to-purple-600 flex items-center justify-center cursor-pointer"
+                        whileHover={{ scale: 1.1, rotate: 90 }}
+                      >
+                        <ChevronRight className="w-6 h-6 text-white" />
+                      </motion.div>
+                    </div>
+                    
+                    {/* Feature Tags */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {['Secure', 'Encrypted', 'Real-time', 'HD Video'].map((tag, i) => (
+                        <span key={i} className="px-3 py-1 text-xs font-medium rounded-full bg-white/10 text-white/90 backdrop-blur-sm">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[10px] sm:text-xs text-emerald-200 font-medium">Online</span>
+
+                {/* Floating Badge */}
+                <div className="absolute -top-3 -right-3">
+                  <motion.div
+                    className="px-4 py-2 rounded-full bg-gradient-to-r from-accent to-purple-600 shadow-lg flex items-center gap-2"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
+                    <span className="text-sm font-bold text-white">PRO</span>
+                  </motion.div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+
+              {/* Secondary Image Card - Enhanced (desktop & large screens) */}
+              <motion.div
+                className="relative group w-full hidden lg:block"
+                variants={imageFloatVariants}
+                animate="float"
+                whileHover={{ scale: 1.03, x: -10 }}
+                transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+              >
+                {/* Card with Different Gradient */}
+                <div className="relative rounded-[2rem] overflow-hidden border-2 border-white/15 bg-gradient-to-br from-white/8 to-white/3 backdrop-blur-xl shadow-xl shadow-black/40">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src="/1.jpeg"
+                      alt="FreedomTek facility overview"
+                      className="w-full h-full object-cover scale-105 group-hover:scale-115 transition-transform duration-700"
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 via-transparent to-purple-900/20" />
+                    
+                    {/* Floating Device Mockup */}
+                    <motion.div
+                      className="absolute -bottom-6 -right-6 w-32 h-32"
+                      animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    >
+                      <div className="relative w-full h-full">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/10 rounded-2xl backdrop-blur-sm border border-white/20" />
+                        <Smartphone className="absolute inset-4 text-white/60" />
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Overlay Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="flex">
+                            {[1, 2, 3].map((i) => (
+                              <motion.div
+                                key={i}
+                                className="w-6 h-6 rounded-full border-2 border-white bg-gradient-to-r from-blue-500 to-cyan-400 -ml-2 first:ml-0"
+                                animate={{ y: [0, -5, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-xs font-medium text-cyan-300 uppercase tracking-[0.15em]">Active Users</span>
+                        </div>
+                        <h3 className="text-lg font-bold text-white mb-1">Facility Management Suite</h3>
+                        <p className="text-sm text-white/60">Complete control & monitoring dashboard</p>
+                      </div>
+                      
+                      {/* Stats Badge */}
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-white">95%</div>
+                        <div className="text-xs text-white/60">Adoption</div>
+                      </div>
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div className="mt-4">
+                      <div className="flex justify-between text-xs text-white/60 mb-1">
+                        <span>System Uptime</span>
+                        <span>99.9%</span>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                        <motion.div
+                          className="h-full rounded-full bg-gradient-to-r from-green-400 to-emerald-500"
+                          initial={{ width: 0 }}
+                          animate={{ width: "99.9%" }}
+                          transition={{ duration: 1.5, delay: 0.5 }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Connection Lines (Visual Element) */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-4">
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                  <div className="absolute top-0 left-0 w-2 h-2 rounded-full bg-accent" />
+                  <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-[hsl(var(--neon-blue))]" />
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Decorative Floating Elements */}
+            <motion.div
+              className="absolute -bottom-8 -left-8 w-16 h-16 rounded-full bg-gradient-to-r from-accent/20 to-transparent blur-xl"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+              transition={{ duration: 8, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute -top-6 -right-6 w-12 h-12 rounded-full bg-gradient-to-r from-[hsl(var(--neon-blue))]/20 to-transparent blur-lg"
+              animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
           </motion.div>
 
           {/* Text Content - Second Part (After Image on Mobile) */}
@@ -329,38 +498,44 @@ export function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* Family App Store Badges (UI only, non-clickable for now) */}
-            {/* <motion.div
+            {/* Secondary Image Card for mobile/small screens (below text & CTAs) */}
+            <motion.div
               variants={childVariants}
-              className="mb-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4"
+              className="mt-6 mb-8 lg:hidden max-w-xl mx-auto"
             >
-              <p className="text-xs sm:text-sm text-white/70 uppercase tracking-[0.18em]">
-                Download the FreedomTek ae Family App
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <Button
-                  size="sm"
-                  className="rounded-2xl bg-white text-black hover:bg-white/90 px-3 sm:px-4 h-9 sm:h-10 shadow-md flex items-center gap-2 text-xs sm:text-sm"
-                  asChild
-                >
-                  <a href="#" onClick={(e) => e.preventDefault()}>
-                    <Smartphone className="w-3.5 h-3.5" />
-                    <span className="font-semibold tracking-wide">App Store</span>
-                  </a>
-                </Button>
+              <motion.div
+                className="relative group w-full"
+                variants={imageFloatVariants}
+                animate="float"
+                whileHover={{ scale: 1.03, x: -5 }}
+                transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+              >
+                <div className="relative rounded-[2rem] overflow-hidden border-2 border-white/15 bg-gradient-to-br from-white/8 to-white/3 backdrop-blur-xl shadow-xl shadow-black/40">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src="/1.jpeg"
+                      alt="FreedomTek facility overview"
+                      className="w-full h-full object-cover scale-105 group-hover:scale-115 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 via-transparent to-purple-900/20" />
+                  </div>
 
-                <Button
-                  size="sm"
-                  className="rounded-2xl bg-[color:var(--tile-blue)] text-white hover:bg-[color:var(--tile-blue)]/90 px-3 sm:px-4 h-9 sm:h-10 shadow-md flex items-center gap-2 text-xs sm:text-sm"
-                  asChild
-                >
-                  <a href="#" onClick={(e) => e.preventDefault()}>
-                    <Play className="w-3.5 h-3.5" />
-                    <span className="font-semibold tracking-wide">Google Play</span>
-                  </a>
-                </Button>
-              </div>
-            </motion.div> */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-medium text-cyan-300 uppercase tracking-[0.15em] mb-1">Facility snapshot</p>
+                        <h3 className="text-lg font-bold text-white mb-1">Facility Management Suite</h3>
+                        <p className="text-sm text-white/60">Complete control & monitoring dashboard</p>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-white">95%</div>
+                        <div className="text-[11px] text-white/60">Adoption</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
 
             {/* Stats Bar */}
             <motion.div
@@ -368,16 +543,19 @@ export function Hero() {
               className="flex flex-wrap justify-center lg:justify-start gap-6 lg:gap-8 text-center"
             >
               {[
-                { value: "100%", label: "Secure" },
-                { value: "24/7", label: "Monitoring" },
-                { value: "0", label: "Hidden Fees" },
-                { value: "99.9%", label: "Uptime" },
+                { value: "100%", label: "Secure", icon: Lock },
+                { value: "24/7", label: "Monitoring", icon: Shield },
+                { value: "0", label: "Hidden Fees", icon: CheckCircle },
+                { value: "99.9%", label: "Uptime", icon: Zap },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  className="flex flex-col items-center"
+                  className="flex flex-col items-center group"
                   whileHover={{ scale: 1.05 }}
                 >
+                  <div className="relative">
+                    <stat.icon className="w-6 h-6 text-white/30 mb-2 group-hover:text-accent transition-colors" />
+                  </div>
                   <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stat.value}</div>
                   <div className="text-sm text-white/70 tracking-wider">{stat.label}</div>
                 </motion.div>

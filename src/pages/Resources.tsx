@@ -369,7 +369,7 @@ const Resources = () => {
                 <div className="absolute -inset-4 bg-gradient-to-tr from-accent/40 via-transparent to-blue-500/40 opacity-70 blur-2xl" />
                 <div className="relative rounded-[1.75rem] border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl overflow-hidden">
                   <motion.img
-                    src="/1.jpeg"
+                    src="/8.jpeg"
                     alt="FreedomTek resources overview"
                     className="w-full h-full object-cover max-h-[420px]"
                     initial={{ scale: 1.05 }}

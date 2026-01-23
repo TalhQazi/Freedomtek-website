@@ -282,7 +282,7 @@ const MessagingModule = () => {
                     transition={{ duration: 0.5 }}
                   >
                     <motion.img
-                      src="/2.jpeg"
+                      src="/7.jpeg"
                       alt="Secure messaging on FreedomTek tablet"
                       className="w-full h-full object-cover"
                       initial={{ scale: 1.1 }}
