@@ -45,9 +45,9 @@ export function Footer() {
               The complete inmate communications ecosystem. Secure, transparent, and fair for facilities and families.
             </p>
             <div className="space-y-3 text-sm">
-              <a href="mailto:nathan@membershipauto.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:info@myfreedomtek.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-4 h-4" />
-                Info@myfreedomtek.com
+               info@myfreedomtek.com
               </a>
              
               <div className="flex items-center gap-2 text-muted-foreground">

@@ -101,8 +101,8 @@ const Contact = () => {
     {
       title: "Support",
       description: "For existing facilities and administrators.",
-      phone: "+1 (555) 010-2470",
-      email: "support@freedomtek.com",
+      phone: "+207-947-1999",
+      email: "info@freedomtek.com",
       icon: Shield,
       gradient: "from-green-500 to-emerald-400",
       delay: 0.1

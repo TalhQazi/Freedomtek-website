@@ -359,18 +359,18 @@ const Demo = () => {
                           </p>
                           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-sm">
                             <a
-                              href="mailto:nathan@membershipauto.com"
-                              className="flex items-center gap-2 text-accent hover:text-accent/80 hover:underline transition-colors"
+                              href="mailto:info@myfreedomtek.com"
+                              className="flex items-center gap-2 text-[color:var(--foreground-muted)] hover:text-accent/80 hover:underline transition-colors"
                             >
                               <Mail className="w-4 h-4" />
-                              <span className="truncate">nathan@membershipauto.com</span>
+                              <span className="truncate">info@myfreedomtek.com</span>
                             </a>
                             <a
                               href="tel:+12077457575"
-                              className="flex items-center gap-2 text-accent hover:text-accent/80 hover:underline transition-colors"
+                              className="flex items-center gap-2 text-[color:var(--foreground-muted)] hover:text-accent/80 hover:underline transition-colors"
                             >
                               <Phone className="w-4 h-4" />
-                              <span>(207) 745-7575</span>
+                              <span>207-947-1999</span>
                             </a>
                           </div>
                         </div>

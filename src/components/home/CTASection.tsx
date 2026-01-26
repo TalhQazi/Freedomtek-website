@@ -57,7 +57,7 @@ export function CTASection() {
               href="mailto:nathan@membershipauto.com"
               className="hover:text-primary transition-colors"
             >
-              nathan@membershipauto.com
+             info@myfreedomtek.com
             </a>
             <span className="hidden sm:block">•</span>
             <a 
@@ -65,7 +65,7 @@ export function CTASection() {
               className="flex items-center gap-2 hover:text-primary transition-colors"
             >
               <Phone className="w-4 h-4" />
-              (207) 745-7575
+              207-947-1999
             </a>
           </div>
         </motion.div>
